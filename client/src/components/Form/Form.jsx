@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Axios from "axios";
 import style from "./Form.css";
 export function Form(props) {
@@ -10,15 +10,19 @@ export function Form(props) {
     temperaments: [],
     contenedor: [],
   });
-  let handleOptions = async () => {
-    await Axios.get("http://localhost:3001/temperament")
-      .then((res) => {
-        setInput({ contenedor: res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
+  //TODO Terminar la implementación del formulario
+  // useEffect(() => {
+  //   async function handleOptions() {
+  //     const datos = await Axios.get("http://localhost:3001/temperament")
+  //       .then((res) => {
+  //         setInput({ contenedor: res.data });
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // });
   const handleInputChange = function (e) {
     setInput({
       ...input,
@@ -71,19 +75,19 @@ export function Form(props) {
     </form>
   );
 }
-export function validate(input) {
-  let errors = {};
+// export function validate(input) {
+//   let errors = {};
 
-  if (!input.username) {
-    errors.username = "Username is required";
-  } else if (!/\S+@\S+\.\S+/.test(input.username)) {
-    errors.username = "Username is invalid";
-  }
-  if (!input.password) {
-    errors.password = "Password is required";
-  } else if (!/(?=.*[0-9])/.test(input.password)) {
-    errors.password = "Password is invalid";
-  }
+//   if (!input.username) {
+//     errors.username = "Username is required";
+//   } else if (!/\S+@\S+\.\S+/.test(input.username)) {
+//     errors.username = "Username is invalid";
+//   }
+//   if (!input.password) {
+//     errors.password = "Password is required";
+//   } else if (!/(?=.*[0-9])/.test(input.password)) {
+//     errors.password = "Password is invalid";
+//   }
 
-  return errors;
-}
+//   return errors;
+// }

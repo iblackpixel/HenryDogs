@@ -1,22 +1,24 @@
 import React from "react";
-import style from "./Landing.css";
-import Navbar from "../NavBar/Navbar";
+import style from "./Landing.module.css";
+import NavBar from "../NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
+import Footer from "../NavBar/Footer";
 
 export default function Landing(props) {
   return (
-    <div className="App BGLanding">
+    <div className={style.BGP}>
+      <NavBar />
       <h2 className={style.title}>Henry Dogs</h2>
-      <div className={style.btnHome}>
+      <div className={style.btnCont}>
         <Link to={"/home"}>
-          <button>Ingresa!</button>
+          <button className={style.btnHome}>Ingresa!</button>
         </Link>
       </div>
       <div className={style.caratula}>
-        <li>Presentado por:</li>
-        <li>Roque Iván Moyano</li>
+        <span className={style.pocket}>Presentado por:</span>
+        <span className={style.pocket}>Roque Iván Moyano</span>
       </div>
-      <Navbar />
+      <Footer />
     </div>
   );
 }

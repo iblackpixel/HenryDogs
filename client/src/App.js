@@ -1,9 +1,17 @@
-import './App.css';
+import { Route } from "react-router-dom";
+import "./App.css";
+import Landing from "../src/components/Landing/Landing.jsx";
+import Home from "./Pages/Home";
+import Detail from "./Pages/Detail";
+import Creation from "./Pages/Creation";
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Dogs</h1>
+      <Route path="/" exact={true} component={Landing} />
+      <Route path="/home" exact={true} component={Home} />
+      <Route path="/razax" exact={true} component={Detail} />
+      <Route path="/dog" exact={true} component={Creation} />
     </div>
   );
 }
