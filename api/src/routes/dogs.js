@@ -96,17 +96,25 @@ server.get("/:idRaza", async (req, res, next) => {
       .then((e) => {
         all = e.data;
       });
-    let prueba = all[1];
-    console.log(prueba.id);
     let filteredBreeds = all.filter((p) => p.id.toString() === idRaza);
-    console.log(filteredBreeds);
     if (!filteredBreeds.length) {
       return res.status(400).json({
         error: "No existe ninguna raza de perro que coincida con ese parámetro",
       });
     }
-    filteredBreeds = filteredBreeds.map(({ name }) => ({ name }));
-    return res.json(filteredBreeds);
+    let catalog = [];
+    filteredBreeds.forEach((element) => {
+      const obj = {
+        id: element.id,
+        name: element.name,
+        image: element.image.url,
+        height: element.height.metric,
+        weight: element.weight.metric,
+        lifeSpan: element.life_span,
+        temperament: element.temperament,
+      };
+      return res.json(obj);
+    });
   } catch (error) {
     next(error);
   }

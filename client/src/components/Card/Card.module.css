@@ -4,6 +4,7 @@
   border-style: solid;
   background-color: whitesmoke;
   height: auto;
-  width: 220px;
-  justify-content: center;
+  width: 230px;
+  justify-self: center;
+  align-self: stretch;
 }

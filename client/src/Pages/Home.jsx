@@ -40,9 +40,7 @@ export default function Home() {
             <Card
               key={e.id}
               name={e.name}
-              height={e.height}
               weight={e.weight}
-              lifeSpan={e.lifeSpan}
               image={e.image}
               temperaments={e.temperament}
             />

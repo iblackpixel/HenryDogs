@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import style from "./Card.module.css";
 export default function Card({
   name,
@@ -15,10 +16,14 @@ export default function Card({
         <img src={image} width="60px" height="60px" alt="" />
       </div>
       <div className={style.informacion}>
-        <h6>Height:{height}</h6>
-        <h6>Weight:{weight}</h6>
-        <h6>Life Span:{lifeSpan}</h6>
-        <h6>Temperaments:{temperaments}</h6>
+        {height ? <h6>Height:{" " + height + " mts."}</h6> : <span></span>}
+        <h6>Weight:{" " + weight + " kgs."}</h6>
+        <h6>Temperaments:{" " + temperaments + "."}</h6>
+        {lifeSpan ? (
+          <h6>Life Span:{" " + lifeSpan + "."}</h6>
+        ) : (
+          <button>Ver Perfil</button>
+        )}
       </div>
     </div>
   );

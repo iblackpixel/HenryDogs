@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  GET_BREED,
   GET_DOGS,
   GET_DOGS_ERROR,
   GET_TEMPERAMENTS,
@@ -24,6 +25,18 @@ export const getDogs = () => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const getBreed = (id) => async (dispatch) => {
+  try {
+    const json = await axios.get("http://localhost:3001/dogs/" + id);
+    dispatch({
+      type: GET_BREED,
+      payload: json.data,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 

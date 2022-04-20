@@ -2,10 +2,20 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
-  border: 2px;
+  align-items: center;
+  justify-items: center;
+  border: 2px solid;
   border-color: black;
   padding: 3px black;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
 }
 .BGP {
   background-image: url("../components/images/perros2amplio.jpg");
+}
+
+.card {
+  display: flex;
+  justify-content: center;
 }
