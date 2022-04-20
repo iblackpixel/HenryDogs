@@ -1,0 +1,9 @@
+.contenedor {
+  border: 2px;
+  border-color: rgb(188, 216, 193);
+  border-style: solid;
+  background-color: whitesmoke;
+  height: auto;
+  width: 220px;
+  justify-content: center;
+}

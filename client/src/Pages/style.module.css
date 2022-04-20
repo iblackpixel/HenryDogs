@@ -1,0 +1,11 @@
+.dogcontainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  border: 2px;
+  border-color: black;
+  padding: 3px black;
+}
+.BGP {
+  background-image: url("../components/images/perros2amplio.jpg");
+}
