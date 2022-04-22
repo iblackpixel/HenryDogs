@@ -39,6 +39,7 @@ export default function Home() {
           return (
             <Card
               key={e.id}
+              id={e.id}
               name={e.name}
               weight={e.weight}
               image={e.image}

@@ -2,12 +2,17 @@ import React from "react";
 import { Form } from "../components/Form/Form";
 import Footer from "../components/NavBar/Footer";
 import NavBar from "../components/NavBar/NavBar";
+import style from "./style.module.css";
 
 function Creation() {
   return (
-    <div>
+    <div className={style.BGP}>
       <NavBar />
-      <Form />
+      <div className={style.auxFormC}>
+        <div className={style.formContainer}>
+          <Form />
+        </div>
+      </div>
       <Footer />
     </div>
   );

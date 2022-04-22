@@ -13,9 +13,31 @@
 }
 .BGP {
   background-image: url("../components/images/perros2amplio.jpg");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card {
   display: flex;
   justify-content: center;
+}
+.auxFormC {
+  height: 430px;
+  width: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  border: 2px solid;
+  border-color: rgb(34, 46, 80);
+}
+.formContainer {
+  height: 400px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(188, 216, 193);
 }

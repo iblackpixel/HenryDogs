@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from "./Card.module.css";
 export default function Card({
+  id,
   name,
   image,
   height,
@@ -22,7 +23,9 @@ export default function Card({
         {lifeSpan ? (
           <h6>Life Span:{" " + lifeSpan + "."}</h6>
         ) : (
-          <button>Ver Perfil</button>
+          <Link to={`/dogs/${id}`}>
+            <button>Ver Perfil</button>
+          </Link>
         )}
       </div>
     </div>
