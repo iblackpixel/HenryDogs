@@ -4,14 +4,15 @@ const { request, response, Router } = require("express");
 const { Raza, Temperament } = require("../db.js");
 const { YOUR_API_KEY } = process.env;
 
-let catalog = [];
-server.post("/", async (req, res, next) => {
+server.get("/", async (req, res, next) => {
   try {
+    let catalog = [];
     let all = [];
     const perro = await Temperament.findAll({
       include: [{ model: Raza }],
     });
-    if (!perro) {
+    console.log(perro.length);
+    if (perro.length === 0) {
       const list = await axios
         .get("https://api.thedogapi.com/v1/breeds?api_key={YOUR_API_KEY}")
         .then((e) => {
@@ -36,9 +37,9 @@ server.post("/", async (req, res, next) => {
 
         const tempCreated = Temperament.create(aux);
       });
+      return res.json(catalog);
     }
-    console.log(catalog.length);
-    return res.json(catalog);
+    return res.json(perro);
   } catch (error) {
     next(error);
   }

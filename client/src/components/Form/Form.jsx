@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
 import style from "./Form.css";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 export function Form(props) {
   const [input, setInput] = React.useState({
     name: "",
@@ -9,18 +12,24 @@ export function Form(props) {
     lifeSpan: "",
     temperaments: [],
     contenedor: [],
+    optionstatus: 0,
   });
-
+  const history = useHistory();
   // TODO Terminar la implementación del formulario
   useEffect(() => {
     async function handleOptions() {
       const datos = await Axios.get("http://localhost:3001/temperament")
         .then((res) => {
-          setInput({ contenedor: res.data });
+          setInput({ contenedor: res.data, optionstatus: 1 });
         })
         .catch((error) => {
           console.log(error);
         });
+    }
+    if (input.optionstatus === 0) {
+      return () => {
+        handleOptions();
+      };
     }
   });
   const handleInputChange = function (e) {
@@ -29,9 +38,12 @@ export function Form(props) {
       [e.target.name]: e.target.value,
     });
   };
-  let handleSubmit = (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
-    props.Form(input);
+    console.log("este es el input", input);
+    const doggo = await Axios.post("http://localhost:3001/dog/", input);
+    alert("Raza creada");
+    history.push("/home");
   };
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
@@ -39,7 +51,7 @@ export function Form(props) {
         <label style={{ alignItem: "center" }}>Nombre: </label>
         <input
           type="text"
-          name="title"
+          name="name"
           onChange={handleInputChange}
           value={input.name}
         />
@@ -48,7 +60,7 @@ export function Form(props) {
         <label style={{ alignItem: "center" }}>Altura: </label>
         <input
           type="text"
-          name="description"
+          name="height"
           onChange={handleInputChange}
           value={input.height}
         />
@@ -57,7 +69,7 @@ export function Form(props) {
         <label style={{ alignItem: "center" }}>Peso: </label>
         <input
           type="text"
-          name="place"
+          name="weight"
           onChange={handleInputChange}
           value={input.weight}
         />
@@ -77,7 +89,7 @@ export function Form(props) {
           {" "}
           <input
             type="text"
-            name="date"
+            name="lifespan"
             onChange={handleInputChange}
             value={input.lifespan}
           />
