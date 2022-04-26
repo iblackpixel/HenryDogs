@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
 import style from "./Form.css";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
-
 export function Form(props) {
   const [input, setInput] = React.useState({
     name: "",
@@ -40,7 +38,6 @@ export function Form(props) {
   };
   let handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("este es el input", input);
     const doggo = await Axios.post("http://localhost:3001/dog/", input);
     alert("Raza creada");
     history.push("/home");

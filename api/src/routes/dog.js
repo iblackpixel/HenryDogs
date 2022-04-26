@@ -2,7 +2,7 @@ const server = require("express").Router();
 const axios = require("axios");
 const { Model } = require("sequelize");
 const { request, response } = require("express");
-const { Raza } = require("../db.js");
+const { Raza, Temperament } = require("../db.js");
 let serie = 0;
 
 server.post("/", async (req, res, next) => {
@@ -18,13 +18,18 @@ server.post("/", async (req, res, next) => {
     //     temperaments: temperaments,
     //   },
     // });
+    const perri = await Raza.findAll({
+      include: [{ model: Temperament }],
+    });
+    serie = perri.length;
     const result = await Raza.create({
       name: name,
-      id: "b" + serie++,
-      height: height,
-      weight: weight,
-      lifespan: lifespan,
+      id: "b" + serie,
+      height: { metric: height },
+      weight: { metric: weight },
+      life_span: lifespan,
       temperaments: temperaments,
+      image: { url: "../../../dog.png" },
     });
     return res.json(result);
   } catch (error) {

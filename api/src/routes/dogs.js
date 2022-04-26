@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const axios = require("axios");
 const { request, response } = require("express");
+const { Raza, Temperament } = require("../db");
 const { YOUR_API_KEY } = process.env;
 
 // server.get("/dogs?name=", async (req, res, next) => {
@@ -42,6 +43,14 @@ server.get("/", async (req, res, next) => {
           .then((e) => {
             all = e.data;
           });
+        const perri = await Raza.findAll({
+          include: [{ model: Temperament }],
+        });
+        if (perri.length) {
+          perri.map((e) => {
+            all.push(e);
+          });
+        }
         let filteredBreeds = all.filter((p) =>
           p.name.toLowerCase().includes(word)
         );
@@ -64,7 +73,17 @@ server.get("/", async (req, res, next) => {
       .then((e) => {
         all = e.data;
       });
-
+    const perri = await Raza.findAll({
+      include: [{ model: Temperament }],
+    });
+    if (perri.length) {
+      perri.map((e) => {
+        all.push(e);
+      });
+      all = all.sort(function (a, b) {
+        return a.name - b.name;
+      });
+    }
     let catalog = [];
     if (all.length) {
       all.forEach((element) => {
@@ -80,6 +99,7 @@ server.get("/", async (req, res, next) => {
         catalog.push(obj);
       });
     }
+
     return res.json(catalog);
   } catch (error) {
     next(error);
@@ -96,6 +116,14 @@ server.get("/:idRaza", async (req, res, next) => {
       .then((e) => {
         all = e.data;
       });
+    const perri = await Raza.findAll({
+      include: [{ model: Temperament }],
+    });
+    if (perri.length) {
+      perri.map((e) => {
+        all.push(e);
+      });
+    }
     let filteredBreeds = all.filter((p) => p.id.toString() === idRaza);
     if (!filteredBreeds.length) {
       return res.status(400).json({

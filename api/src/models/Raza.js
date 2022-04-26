@@ -15,15 +15,19 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
     height: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     weight: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
-    lifespan: {
+    life_span: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.JSONB,
       allowNull: true,
     },
   });

@@ -22,8 +22,19 @@ export default function Home() {
   const [door, setDoor] = useState(0);
   const [door2, setDoor2] = useState(1);
   const [totalDogs, setTotalDogs] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const [checked2, setChecked2] = useState(false);
+
   useEffect(() => {
-    setTotalDogs(allDogs);
+    const filtDogs = [...allDogs].sort(function (a, b) {
+      return a.name - b.name;
+    });
+    console.log(
+      filtDogs[filtDogs.length - 1],
+      filtDogs[filtDogs.length - 2],
+      "no se ve"
+    );
+    setTotalDogs(filtDogs);
   }, [setTotalDogs, allDogs]);
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastCountrie = currentPage * 8;
@@ -38,20 +49,100 @@ export default function Home() {
       });
       setTotalDogs(byWeight);
       setDoor(1);
-      console.log("aqui tampoco");
     } else {
       setTotalDogs(allDogs);
-      console.log(totalDogs, "aqui no entra");
       setDoor(0);
     }
   };
-  console.log(door, "queonda");
+  const handleChecked = function () {
+    if (checked === false) {
+      if (checked2 === false) {
+        let filteredBreeds = allDogs.filter(
+          (p) => p.id.toString().includes("b") === false
+        );
+        setTotalDogs(filteredBreeds);
+        console.log(filteredBreeds[0].weight.slice(-2), "aquientra");
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      } else {
+        setTotalDogs(allDogs);
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      }
+      return setChecked(true);
+    } else {
+      if (checked2 === false) {
+        setTotalDogs(allDogs);
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      } else {
+        let filteredBreeds = allDogs.filter(
+          (p) => p.id.toString().includes("b") === true
+        );
+        setTotalDogs(filteredBreeds);
+
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      }
+      return setChecked(false);
+    }
+  };
+  const handleChecked2 = function () {
+    if (checked2 === false) {
+      if (checked === false) {
+        let filteredBreeds = allDogs.filter(
+          (p) => p.id.toString().includes("b") === true
+        );
+        setTotalDogs(filteredBreeds);
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      } else {
+        setTotalDogs(allDogs);
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      }
+      return setChecked2(true);
+    } else {
+      if (checked === false) {
+        setTotalDogs(allDogs);
+      } else {
+        let filteredBreeds = allDogs.filter(
+          (p) => p.id.toString().includes("b") === false
+        );
+        setTotalDogs(filteredBreeds);
+        if (door === 1) {
+          setTotalDogs(() => {
+            handleWeightSort();
+          });
+        }
+      }
+      return setChecked2(false);
+    }
+  };
   return (
     <div className={style.BGP}>
       <NavBar />
       <div className="ordenamiento">
         {door === 0 ? (
-          <button onClick={(door) => handleWeightSort()}>Peso</button>
+          <button onClick={() => handleWeightSort()}>Peso</button>
         ) : (
           <button onClick={(door) => handleWeightSort()}>A-Z</button>
         )}
@@ -72,8 +163,17 @@ export default function Home() {
             Descendente
           </button>
         )}
+        <label>
+          <input type="checkbox" checked={checked} onChange={handleChecked} />
+          Razas Conocidas
+        </label>
+        <label>
+          <input type="checkbox" checked={checked2} onChange={handleChecked2} />
+          Nuevas Razas
+        </label>
       </div>
       <div className={style.dogcontainer}>
+        {console.log(totalDogs.length)}
         {door2 === 1
           ? totalDogs
               .slice(indexOfFirstCountrie, indexOfLastCountrie)
