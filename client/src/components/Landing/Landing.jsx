@@ -7,7 +7,6 @@ import Footer from "../NavBar/Footer";
 export default function Landing(props) {
   return (
     <div className={style.BGP}>
-      <NavBar />
       <h2 className={style.title}>Henry Dogs</h2>
       <div className={style.btnCont}>
         <Link to={"/home"}>
@@ -18,7 +17,6 @@ export default function Landing(props) {
         <span className={style.pocket}>Presentado por:</span>
         <span className={style.pocket}>Roque Iván Moyano</span>
       </div>
-      <Footer />
     </div>
   );
 }

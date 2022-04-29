@@ -10,10 +10,10 @@ export default function NavBar({ onSearch }) {
         <span className={style.logo}>Henry Dogs App</span>
       </Link>
       <Link to="/about">
-        <span>About</span>
+        <span className={style.logosp}>About</span>
       </Link>
       <Link to="/dog">
-        <span>Crear Raza</span>
+        <span className={style.logosp}>Crear Raza</span>
       </Link>
       <SearchBar onSearch={onSearch} />
     </nav>

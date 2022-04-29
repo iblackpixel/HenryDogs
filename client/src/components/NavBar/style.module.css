@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-color: rgb(0, 121, 145);
+  background-color: rgb(8, 178, 227);
 }
 .pocket {
   display: flex;
@@ -17,6 +17,7 @@
 }
 
 .footerbtn {
+  color: rgb(72, 77, 109);
   display: flex;
   align-items: center;
   margin-right: 5px;
@@ -33,5 +34,27 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(0, 121, 145);
+  background-color: rgb(8, 178, 227);
+}
+
+.logo {
+  font-family: Haettenschweiler, Impact, "Arial Narrow Bold", sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 64px;
+  color: rgb(72, 77, 109);
+}
+:visited {
+  color: rgb(72, 77, 109);
+  text-decoration: none;
+}
+
+.logosp {
+  font-family: Haettenschweiler;
+  font-size: large;
+  color: rgb(72, 77, 109);
+}
+.logosp:visited {
+  color: rgb(72, 77, 109);
+  text-decoration: none;
 }

@@ -24,10 +24,14 @@ module.exports = (sequelize) => {
     },
     life_span: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     image: {
       type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    temperament: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   });

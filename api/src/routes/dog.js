@@ -28,7 +28,7 @@ server.post("/", async (req, res, next) => {
       height: { metric: height },
       weight: { metric: weight },
       life_span: lifespan,
-      temperaments: temperaments,
+      temperament: temperaments.join(","),
       image: { url: "../../../dog.png" },
     });
     return res.json(result);

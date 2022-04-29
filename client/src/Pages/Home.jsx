@@ -27,13 +27,8 @@ export default function Home() {
 
   useEffect(() => {
     const filtDogs = [...allDogs].sort(function (a, b) {
-      return a.name - b.name;
+      if (b.name > a.name) return -1;
     });
-    console.log(
-      filtDogs[filtDogs.length - 1],
-      filtDogs[filtDogs.length - 2],
-      "no se ve"
-    );
     setTotalDogs(filtDogs);
   }, [setTotalDogs, allDogs]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,7 +45,10 @@ export default function Home() {
       setTotalDogs(byWeight);
       setDoor(1);
     } else {
-      setTotalDogs(allDogs);
+      const filtDogs = [...totalDogs].sort(function (a, b) {
+        if (b.name > a.name) return -1;
+      });
+      setTotalDogs(filtDogs);
       setDoor(0);
     }
   };
@@ -137,9 +135,20 @@ export default function Home() {
       return setChecked2(false);
     }
   };
+  const onSearch = function (breed) {
+    if (breed.length) {
+      const searchedBreeds = [...allDogs].filter((e) =>
+        e.name.toLowerCase().includes(breed.toLowerCase())
+      );
+      if (searchedBreeds.length === 0)
+        alert("No existe ninguna raza que coincida");
+      setTotalDogs(searchedBreeds);
+    }
+  };
+
   return (
     <div className={style.BGP}>
-      <NavBar />
+      <NavBar onSearch={onSearch} />
       <div className="ordenamiento">
         {door === 0 ? (
           <button onClick={() => handleWeightSort()}>Peso</button>

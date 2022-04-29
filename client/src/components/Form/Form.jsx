@@ -1,39 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Axios from "axios";
 import style from "./Form.css";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getTemperaments } from "../../actions/actions";
 export function Form(props) {
-  const [input, setInput] = React.useState({
+  const [input, setInput] = useState({
     name: "",
     height: "",
     weight: "",
-    lifeSpan: "",
+    lifespan: "",
     temperaments: [],
-    contenedor: [],
     optionstatus: 0,
   });
   const history = useHistory();
-  // TODO Terminar la implementación del formulario
+  const dispatch = useDispatch();
+  const contenedor = useSelector((state) => state.temperaments);
   useEffect(() => {
-    async function handleOptions() {
-      const datos = await Axios.get("http://localhost:3001/temperament")
-        .then((res) => {
-          setInput({ contenedor: res.data, optionstatus: 1 });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    if (input.optionstatus === 0) {
-      return () => {
-        handleOptions();
-      };
-    }
-  });
+    dispatch(getTemperaments());
+  }, [dispatch]);
+  // TODO Terminar la implementación del formulario
   const handleInputChange = function (e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+  const handleSelect = function (e) {
+    console.log(e.target.value);
+    console.log(input);
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        [e.target.name]: [...prevInput[e.target.name], e.target.value],
+      };
+    });
+
+    //setInput({ ...input, input.temperaments: [...input.temperaments, e.target.value] });
+  };
+  const tempDelete = function (temp) {
+    console.log(temp, "esto es temp");
+    const filteredTemp = input.temperaments.filter((t) => t !== temp);
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        temperaments: filteredTemp,
+      };
     });
   };
   let handleSubmit = async (e) => {
@@ -42,49 +56,54 @@ export function Form(props) {
     alert("Raza creada");
     history.push("/home");
   };
+  const disabledSubmit = useMemo(() => {
+    if (
+      input.name.length > 0 &&
+      input.height.length > 0 &&
+      input.weight.length > 0 &&
+      input.lifespan.length > 0
+    ) {
+      return false;
+    }
+    return true;
+  }, [input]);
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
-      <div style={{ alignItem: "center" }}>
-        <label style={{ alignItem: "center" }}>Nombre: </label>
+      <div>
         <input
+          autoComplete="off"
+          placeholder="Nombre"
           type="text"
           name="name"
           onChange={handleInputChange}
           value={input.name}
         />
       </div>
-      <div style={{ alignItem: "center" }}>
-        <label style={{ alignItem: "center" }}>Altura: </label>
+      <div>
         <input
+          autoComplete="off"
+          placeholder="Altura"
           type="text"
           name="height"
           onChange={handleInputChange}
           value={input.height}
         />
       </div>
-      <div style={{ alignItem: "center" }}>
-        <label style={{ alignItem: "center" }}>Peso: </label>
+      <div>
         <input
+          autoComplete="off"
+          placeholder="Peso"
           type="text"
           name="weight"
           onChange={handleInputChange}
           value={input.weight}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <div>
         <div>
-          {" "}
-          <label style={{ alignItems: "center" }}>Edad: </label>
-        </div>
-        <div>
-          {" "}
           <input
+            autoComplete="off"
+            placeholder="Expectativa de vida"
             type="text"
             name="lifespan"
             onChange={handleInputChange}
@@ -92,18 +111,42 @@ export function Form(props) {
           />
         </div>
       </div>
-      <div style={{ alignItem: "center" }}>
-        <label style={{ textAlign: "center" }}>Temperamentos</label>
-        <select name="temperaments" className={style.selectForm}>
-          {input.contenedor.map((e) => (
-            <option key={e.id} value={e.id}>
-              {e.temperament}
-            </option>
-          ))}
+      <div>
+        <select multiple={true} name="temperaments" onChange={handleSelect}>
+          <option key={"h"} value={"default"}>
+            Elija un temperamento
+          </option>
+          {contenedor.map((e) => {
+            return (
+              <option key={e.id} value={e.temperaments}>
+                {e.temperament}
+              </option>
+            );
+          })}
         </select>
+        <div>
+          Temperamentos:
+          {input.temperaments.map((f, i) => {
+            return (
+              <span>
+                {`${f}, `}
+                <button
+                  type="button"
+                  key={i}
+                  value={f}
+                  onClick={() => tempDelete(f)}
+                >
+                  X
+                </button>
+              </span>
+            );
+          })}
+        </div>
       </div>
-      <div style={{ alignItem: "center" }}>
-        <button type="submit">Crear Raza</button>
+      <div>
+        <button type="submit" disabled={disabledSubmit}>
+          Crear Raza
+        </button>
       </div>
     </form>
   );
