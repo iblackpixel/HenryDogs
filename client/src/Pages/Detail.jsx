@@ -13,7 +13,7 @@ function Detail() {
     dispatch(getBreed(id));
   }, [dispatch, id]);
   const breed = useSelector((state) => state.breed);
-  console.log([id, breed]);
+  console.log([id, breed.temperaments, breed.temperament, "todo esto"]);
   return (
     <div>
       <NavBar />
@@ -24,7 +24,9 @@ function Detail() {
           height={breed.height}
           image={breed.image}
           lifeSpan={breed.lifeSpan}
-          temperaments={breed.temperament}
+          temperaments={
+            !breed.temperament ? breed.temperaments : breed.temperament
+          }
         />
       </div>
       <Footer />

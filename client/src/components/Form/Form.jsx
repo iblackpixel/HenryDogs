@@ -20,6 +20,7 @@ export function Form(props) {
     dispatch(getTemperaments());
   }, [dispatch]);
   // TODO Terminar la implementación del formulario
+
   const handleInputChange = function (e) {
     setInput((prevInput) => {
       return {
@@ -37,8 +38,6 @@ export function Form(props) {
         [e.target.name]: [...prevInput[e.target.name], e.target.value],
       };
     });
-
-    //setInput({ ...input, input.temperaments: [...input.temperaments, e.target.value] });
   };
   const tempDelete = function (temp) {
     console.log(temp, "esto es temp");
@@ -67,6 +66,28 @@ export function Form(props) {
     }
     return true;
   }, [input]);
+  function valida(input) {
+    let errors = {};
+    if (
+      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.height) &&
+      input.height.slice(0, 2) >= input.height.slice(-2)
+    )
+      return (errors.height =
+        "Por favor ponga la altura en el formato correcto");
+    if (
+      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.weight) &&
+      input.weight.slice(0, 2) >= input.weight.slice(-2)
+    )
+      return (errors.weight = "Por favor ponga el peso en el formato correcto");
+    if (
+      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.lifespan) &&
+      input.lifespan.slice(0, 2) >= input.lifespan.slice(-2)
+    )
+      return (errors.lifespan =
+        "Por favor ponga la expectativa de vida en el formato correcto");
+    if (/^[a-zA-Z\s]{2,254}$/.test(input))
+      return (errors.name = "El nombre solo debe tener letras");
+  }
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
       <div>
@@ -82,7 +103,7 @@ export function Form(props) {
       <div>
         <input
           autoComplete="off"
-          placeholder="Altura"
+          placeholder="Altura min-max Ej:50-70"
           type="text"
           name="height"
           onChange={handleInputChange}
@@ -92,7 +113,7 @@ export function Form(props) {
       <div>
         <input
           autoComplete="off"
-          placeholder="Peso"
+          placeholder="Peso min-max Ej:08-15"
           type="text"
           name="weight"
           onChange={handleInputChange}
@@ -103,7 +124,7 @@ export function Form(props) {
         <div>
           <input
             autoComplete="off"
-            placeholder="Expectativa de vida"
+            placeholder="Longevidad min-max"
             type="text"
             name="lifespan"
             onChange={handleInputChange}
@@ -114,7 +135,7 @@ export function Form(props) {
       <div>
         <select multiple={true} name="temperaments" onChange={handleSelect}>
           <option key={"h"} value={"default"}>
-            Elija un temperamento
+            Elija sus temperamentos
           </option>
           {contenedor.map((e) => {
             return (

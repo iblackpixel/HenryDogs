@@ -4,32 +4,6 @@ const { request, response } = require("express");
 const { Raza, Temperament } = require("../db");
 const { YOUR_API_KEY } = process.env;
 
-// server.get("/dogs?name=", async (req, res, next) => {
-//   console.log("no entro ni en pedo aquí");
-//   try {
-//     const word = req.query.name;
-//     console.log(word);
-//     let all = [];
-//     const list = await axios
-//       .get(
-//         `https://api.thedogapi.com/v1/breeds/search?q={word}?api_key={YOUR_API_KEY}"`
-//       )
-//       .then((e) => {
-//         all = e.data;
-//       });
-//     let filteredBreeds = all.filter((p) => p.name.includes(word));
-//     if (!filteredBreeds.length) {
-//       return res.status(STATUS_USER_ERROR).json({
-//         error: "No existe ninguna raza de perro que coincida con ese parámetro",
-//       });
-//     }
-//     filteredBreeds = filteredBreeds.map(({ name }) => ({ name }));
-//     return res.json(filteredBreeds);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 server.get("/", async (req, res, next) => {
   try {
     let word = req.query.name;
@@ -46,11 +20,13 @@ server.get("/", async (req, res, next) => {
         const perri = await Raza.findAll({
           include: [{ model: Temperament }],
         });
+
         if (perri.length) {
           perri.map((e) => {
             all.push(e);
           });
         }
+
         let filteredBreeds = all.filter((p) =>
           p.name.toLowerCase().includes(word)
         );
@@ -87,6 +63,18 @@ server.get("/", async (req, res, next) => {
     let catalog = [];
     if (all.length) {
       all.forEach((element) => {
+        let temps = "";
+        if (element.temperament) {
+          temps = element.temperament;
+        } else if (element.temperaments) {
+          const aux = element.temperaments.map((te) => {
+            return te["temperament"];
+          });
+          temps = aux.join(", ");
+        } else {
+          temps = "No tiene temperamentos cargados";
+        }
+
         const obj = {
           id: element.id,
           name: element.name,
@@ -94,7 +82,7 @@ server.get("/", async (req, res, next) => {
           height: element.height.metric,
           weight: element.weight.metric,
           lifeSpan: element.life_span,
-          temperament: element.temperament,
+          temperament: temps,
         };
         catalog.push(obj);
       });
@@ -132,6 +120,17 @@ server.get("/:idRaza", async (req, res, next) => {
     }
     let catalog = [];
     filteredBreeds.forEach((element) => {
+      let temps = "";
+      if (element.temperament) {
+        temps = element.temperament;
+      } else if (element.temperaments) {
+        const aux = element.temperaments.map((te) => {
+          return te["temperament"];
+        });
+        temps = aux.join(", ");
+      } else {
+        temps = "No tiene temperamentos cargados";
+      }
       const obj = {
         id: element.id,
         name: element.name,
@@ -139,7 +138,7 @@ server.get("/:idRaza", async (req, res, next) => {
         height: element.height.metric,
         weight: element.weight.metric,
         lifeSpan: element.life_span,
-        temperament: element.temperament,
+        temperament: temps,
       };
       return res.json(obj);
     });
@@ -147,5 +146,31 @@ server.get("/:idRaza", async (req, res, next) => {
     next(error);
   }
 });
+
+// server.get("/dogs?name=", async (req, res, next) => {
+//   console.log("no entro ni en pedo aquí");
+//   try {
+//     const word = req.query.name;
+//     console.log(word);
+//     let all = [];
+//     const list = await axios
+//       .get(
+//         `https://api.thedogapi.com/v1/breeds/search?q={word}?api_key={YOUR_API_KEY}"`
+//       )
+//       .then((e) => {
+//         all = e.data;
+//       });
+//     let filteredBreeds = all.filter((p) => p.name.includes(word));
+//     if (!filteredBreeds.length) {
+//       return res.status(STATUS_USER_ERROR).json({
+//         error: "No existe ninguna raza de perro que coincida con ese parámetro",
+//       });
+//     }
+//     filteredBreeds = filteredBreeds.map(({ name }) => ({ name }));
+//     return res.json(filteredBreeds);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = server;

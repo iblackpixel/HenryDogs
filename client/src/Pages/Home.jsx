@@ -7,12 +7,13 @@ import NavBar from "../components/NavBar/NavBar";
 import Paginado from "../components/NavBar/Paginado";
 import { getDogs, getTemperaments } from "../actions/actions";
 import style from "./style.module.css";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const allTemperaments = useSelector((state) => state.temperaments);
-
+  const history = useHistory();
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);
@@ -24,6 +25,7 @@ export default function Home() {
   const [totalDogs, setTotalDogs] = useState([]);
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
+  const [filtTemp, setfiltTemp] = useState();
 
   useEffect(() => {
     const filtDogs = [...allDogs].sort(function (a, b) {
@@ -36,6 +38,24 @@ export default function Home() {
   const indexOfFirstCountrie = indexOfLastCountrie - 8;
   const paginado = (pageNumbers) => {
     setCurrentPage(pageNumbers);
+  };
+
+  const handleSelect = function (e) {
+    // const aux = { [e.target.name]: e.target.value };
+    // console.log(
+    //   e.target.value,
+    //   "primero fijate esto antes del acv",
+    //   allDogs[0],
+    //   allDogs.length
+    // );
+    let filteredTemp = allDogs.filter((d) => {
+      if (d.temperament) {
+        console.log(d.temperament, "mevuelvoloco");
+        if (d.temperament.includes(e.target.value)) return d;
+      }
+    });
+    console.log(filteredTemp, "allTemperaments", allDogs.length);
+    setTotalDogs(filteredTemp);
   };
   const handleWeightSort = function () {
     if (door === 0) {
@@ -59,7 +79,6 @@ export default function Home() {
           (p) => p.id.toString().includes("b") === false
         );
         setTotalDogs(filteredBreeds);
-        console.log(filteredBreeds[0].weight.slice(-2), "aquientra");
         if (door === 1) {
           setTotalDogs(() => {
             handleWeightSort();
@@ -180,6 +199,32 @@ export default function Home() {
           <input type="checkbox" checked={checked2} onChange={handleChecked2} />
           Nuevas Razas
         </label>
+        <div>
+          <select
+            name="temperaments"
+            placeholder="Filtre por temperamento"
+            onChange={handleSelect}
+          >
+            <option key={"h"} value={"default"}>
+              Filtre por temperamento
+            </option>
+            {allTemperaments.map((e) => {
+              return (
+                <option key={e.id} value={e.temperament}>
+                  {console.log()}
+                  {e.temperament}
+                </option>
+              );
+            })}
+          </select>
+          <button
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Filtros Off
+          </button>
+        </div>
       </div>
       <div className={style.dogcontainer}>
         {console.log(totalDogs.length)}

@@ -30,9 +30,5 @@ module.exports = (sequelize) => {
       type: DataTypes.JSONB,
       allowNull: true,
     },
-    temperament: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
   });
 };
