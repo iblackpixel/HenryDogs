@@ -13,6 +13,12 @@ export function Form(props) {
     temperaments: [],
     optionstatus: 0,
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    height: "",
+    weight: "",
+    lifespan: "",
+  });
   const history = useHistory();
   const dispatch = useDispatch();
   const contenedor = useSelector((state) => state.temperaments);
@@ -28,10 +34,9 @@ export function Form(props) {
         [e.target.name]: e.target.value,
       };
     });
+    setErrors(valida({ ...input, [e.target.name]: e.target.value }));
   };
   const handleSelect = function (e) {
-    console.log(e.target.value);
-    console.log(input);
     setInput((prevInput) => {
       return {
         ...prevInput,
@@ -62,31 +67,43 @@ export function Form(props) {
       input.weight.length > 0 &&
       input.lifespan.length > 0
     ) {
+      valida(input);
       return false;
     }
     return true;
   }, [input]);
   function valida(input) {
     let errors = {};
-    if (
-      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.height) &&
-      input.height.slice(0, 2) >= input.height.slice(-2)
-    )
-      return (errors.height =
-        "Por favor ponga la altura en el formato correcto");
-    if (
-      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.weight) &&
-      input.weight.slice(0, 2) >= input.weight.slice(-2)
-    )
-      return (errors.weight = "Por favor ponga el peso en el formato correcto");
-    if (
-      !/^[0-9]{2}([-])[0-9]{2}$/.test(input.lifespan) &&
-      input.lifespan.slice(0, 2) >= input.lifespan.slice(-2)
-    )
-      return (errors.lifespan =
-        "Por favor ponga la expectativa de vida en el formato correcto");
-    if (/^[a-zA-Z\s]{2,254}$/.test(input))
-      return (errors.name = "El nombre solo debe tener letras");
+    if (!/^[a-zA-Z\s]{1,254}$/.test(input.name)) {
+      errors.name = "El nombre solo debe tener letras";
+      console.log(errors.name, "esto tiene que devolver");
+    }
+    if (input.height.length) {
+      if (!/^[0-9]{2}([-])[0-9]{2}$/.test(input.height)) {
+        console.log(input.height.length, "esto tiene que devolver");
+        errors.height = "Por favor ponga la altura en el formato correcto";
+      } else if (input.height.slice(0, 2) >= input.height.slice(-2)) {
+        console.log(errors.name, "esto tiene que devolver");
+        errors.height = "Por favor ponga la altura en el formato correcto";
+      }
+    }
+    if (input.weight.length) {
+      if (!/^[0-9]{2}([-])[0-9]{2}$/.test(input.weight)) {
+        errors.weight = "Por favor ponga el peso en el formato correcto";
+      } else if (input.weight.slice(0, 2) >= input.weight.slice(-2)) {
+        errors.weight = "Por favor ponga el peso en el formato correcto";
+      }
+    }
+    if (input.lifespan.length) {
+      if (!/^[0-9]{2}([-])[0-9]{2}$/.test(input.lifespan)) {
+        errors.lifespan =
+          "Por favor ponga la longevidad en el formato correcto";
+      } else if (input.lifespan.slice(0, 2) >= input.lifespan.slice(-2)) {
+        errors.lifespan =
+          "Por favor ponga la longevidad en el formato correcto";
+      }
+    }
+    return errors;
   }
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
@@ -99,6 +116,7 @@ export function Form(props) {
           onChange={handleInputChange}
           value={input.name}
         />
+        {errors.name && <p>{errors.name}</p>}
       </div>
       <div>
         <input
@@ -109,6 +127,7 @@ export function Form(props) {
           onChange={handleInputChange}
           value={input.height}
         />
+        {errors.height && <p>{errors.height}</p>}
       </div>
       <div>
         <input
@@ -119,6 +138,7 @@ export function Form(props) {
           onChange={handleInputChange}
           value={input.weight}
         />
+        {errors.weight && <p>{errors.weight}</p>}
       </div>
       <div>
         <div>
@@ -130,6 +150,7 @@ export function Form(props) {
             onChange={handleInputChange}
             value={input.lifespan}
           />
+          {errors.lifespan && <p>{errors.lifespan}</p>}
         </div>
       </div>
       <div>
@@ -172,19 +193,3 @@ export function Form(props) {
     </form>
   );
 }
-// export function validate(input) {
-//   let errors = {};
-
-//   if (!input.username) {
-//     errors.username = "Username is required";
-//   } else if (!/\S+@\S+\.\S+/.test(input.username)) {
-//     errors.username = "Username is invalid";
-//   }
-//   if (!input.password) {
-//     errors.password = "Password is required";
-//   } else if (!/(?=.*[0-9])/.test(input.password)) {
-//     errors.password = "Password is invalid";
-//   }
-
-//   return errors;
-// }
