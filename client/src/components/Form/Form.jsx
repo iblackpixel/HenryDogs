@@ -154,8 +154,8 @@ export function Form(props) {
         </div>
       </div>
       <div>
-        <select multiple={true} name="temperaments" onChange={handleSelect}>
-          <option key={"h"} value={"default"}>
+        <select name="temperaments" onChange={handleSelect}>
+          <option key={"h"} value={"default"} selected disabled>
             Elija sus temperamentos
           </option>
           {contenedor.map((e) => {

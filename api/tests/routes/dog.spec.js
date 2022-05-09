@@ -8,8 +8,8 @@ const agent = session(app);
 const dog = {
   name: "Puggo",
   id: "ba3",
-  height: "15-35",
-  weight: "20-35",
+  height: { metric: "15-35" },
+  weight: { metric: "20-35" },
   life_span: "8-12",
   image: { url: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg" },
 };

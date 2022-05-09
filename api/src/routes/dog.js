@@ -22,7 +22,7 @@ server.post("/", async (req, res, next) => {
       weight: { metric: weight },
       life_span: lifespan,
 
-      image: { url: "../../../dog.png" },
+      image: { url: "https://i.ibb.co/xD1DvjM/dog.png" },
     });
 
     let ide = [];

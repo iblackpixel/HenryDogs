@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import Card from "../components/Card/Card";
 import Footer from "../components/NavBar/Footer";
 import NavBar from "../components/NavBar/NavBar";
@@ -41,13 +40,6 @@ export default function Home() {
   };
 
   const handleSelect = function (e) {
-    // const aux = { [e.target.name]: e.target.value };
-    // console.log(
-    //   e.target.value,
-    //   "primero fijate esto antes del acv",
-    //   allDogs[0],
-    //   allDogs.length
-    // );
     let filteredTemp = allDogs.filter((d) => {
       if (d.temperament) {
         console.log(d.temperament, "mevuelvoloco");
@@ -168,62 +160,77 @@ export default function Home() {
   return (
     <div className={style.BGP}>
       <NavBar onSearch={onSearch} />
-      <div className="ordenamiento">
-        {door === 0 ? (
-          <button onClick={() => handleWeightSort()}>Peso</button>
-        ) : (
-          <button onClick={(door) => handleWeightSort()}>A-Z</button>
-        )}
-        {door2 === 1 ? (
-          <button
-            onClick={() => {
-              setDoor2(0);
-            }}
-          >
-            Ascendente
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              setDoor2(1);
-            }}
-          >
-            Descendente
-          </button>
-        )}
-        <label>
-          <input type="checkbox" checked={checked} onChange={handleChecked} />
-          Razas Conocidas
-        </label>
-        <label>
-          <input type="checkbox" checked={checked2} onChange={handleChecked2} />
-          Nuevas Razas
-        </label>
-        <div>
-          <select
-            name="temperaments"
-            placeholder="Filtre por temperamento"
-            onChange={handleSelect}
-          >
-            <option key={"h"} value={"default"}>
-              Filtre por temperamento
-            </option>
-            {allTemperaments.map((e) => {
-              return (
-                <option key={e.id} value={e.temperament}>
-                  {console.log()}
-                  {e.temperament}
-                </option>
-              );
-            })}
-          </select>
-          <button
-            onClick={() => {
-              window.location.reload();
-            }}
-          >
-            Filtros Off
-          </button>
+      <div className={style.filters2}>
+        <div className={style.filters}>
+          <div>
+            {door === 0 ? (
+              <button onClick={() => handleWeightSort()}>Peso</button>
+            ) : (
+              <button onClick={(door) => handleWeightSort()}>A-Z</button>
+            )}
+            {door2 === 1 ? (
+              <button
+                onClick={() => {
+                  setDoor2(0);
+                }}
+              >
+                Ascendente
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setDoor2(1);
+                }}
+              >
+                Descendente
+              </button>
+            )}
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={handleChecked}
+              />
+              Razas Conocidas
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={checked2}
+                onChange={handleChecked2}
+              />
+              Nuevas Razas
+            </label>
+          </div>
+
+          <div>
+            <select
+              name="temperaments"
+              placeholder="Filtre por temperamento"
+              onChange={handleSelect}
+            >
+              <option key={"h"} value={"default"}>
+                Filtre por temperamento
+              </option>
+              {allTemperaments.map((e) => {
+                return (
+                  <option key={e.id} value={e.temperament}>
+                    {console.log()}
+                    {e.temperament}
+                  </option>
+                );
+              })}
+            </select>
+            <button
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              Filtros Off
+            </button>
+          </div>
         </div>
       </div>
       <div className={style.dogcontainer}>

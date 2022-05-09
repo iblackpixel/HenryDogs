@@ -9,15 +9,22 @@ export default function Footer() {
         <div className={style.footerbtn}>Por Roque Iván Moyano</div>
       </div>
       <div className={style.pocket}>
-        <Link to="https://github.com/iblackpixel">
-          <button className={style.footerbtn}>GitHub</button>
-        </Link>
-        <Link to="https://www.linkedin.com/in/roque-iván-moyano-a5b0b7203">
-          <button className={style.footerbtn}>LinkedIn</button>
-        </Link>
-        <Link to="mailto:rimoyano23@gmail.com,rimoyano23@gmail.com">
-          <button className={style.footerbtn}>Mail</button>
-        </Link>
+        <a
+          className={style.footerbtn}
+          href="https://github.com/iblackpixel"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github{" "}
+        </a>
+        <a
+          className={style.footerbtn}
+          href="https://www.linkedin.com/in/roque-iván-moyano-a5b0b7203"
+          target="_blank"
+          rel="noreferrer"
+        >
+          LinkedIn{" "}
+        </a>
       </div>
     </div>
   );

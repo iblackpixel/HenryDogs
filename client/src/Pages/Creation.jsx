@@ -1,13 +1,13 @@
 import React from "react";
 import { Form } from "../components/Form/Form";
 import Footer from "../components/NavBar/Footer";
-import NavBar from "../components/NavBar/NavBar";
+import NavBarExtra from "../components/NavBar/NavBarExtra";
 import style from "./style.module.css";
 
 function Creation() {
   return (
     <div className={style.BGP}>
-      <NavBar />
+      <NavBarExtra />
       <div className={style.auxFormC}>
         <div className={style.formContainer}>
           <Form />

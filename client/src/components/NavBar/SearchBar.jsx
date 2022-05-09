@@ -15,7 +15,7 @@ export default function SearchBar({ onSearch }) {
         value={breed}
         onChange={(e) => setBreed(e.target.value)}
       />
-      <input type="submit" value="Buscar" />
+      <button type="submit">Buscar</button>
     </form>
   );
 }

@@ -15,3 +15,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+button {
+  background-color: rgb(72, 77, 109);
+  color: rgb(239, 233, 244);
+  border: solid 1px rgb(239, 233, 244);
+  border-radius: 8px;
+  transition: 1s;
+}
+button:hover {
+  background-color: rgb(239, 233, 244);
+  border-radius: 8px;
+  color: black;
+  border: solid 1px rgb(72, 77, 109);
+}
+button:visited {
+  /* color: rgb(72, 77, 109); */
+  text-decoration: none;
+}
