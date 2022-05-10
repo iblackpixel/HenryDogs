@@ -11,36 +11,25 @@ import { Link } from "react-router-dom";
 import { configure, shallow } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
-import Footer from "./components/NavBar/Footer";
+import NavBarExtra from "./components/NavBar/NavBarExtra";
 
 configure({ adapter: new Adapter() });
 
-describe("<Footer/>", () => {
+describe("<NavBarExtra/>", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Footer />);
+    wrapper = shallow(<NavBarExtra />);
   });
 
-  it("Deberia renderizar Tres <Link />", () => {
-    expect(wrapper.find(Link)).toHaveLength(3);
+  it("Deberia renderizar Dos <Link />", () => {
+    expect(wrapper.find(Link)).toHaveLength(2);
   });
-  it('El primer Link debe tener el texto "GitHub" y cambiar la ruta hacia "https://github.com/iblackpixel".', () => {
-    expect(wrapper.find(Link).at(0).prop("to")).toEqual(
-      "https://github.com/iblackpixel"
-    );
-    expect(wrapper.find(Link).at(0).text()).toEqual("GitHub");
+  it('El primer Link debe tener el texto "Henry Dogs App" y cambiar la ruta hacia "/home".', () => {
+    expect(wrapper.find(Link).at(0).prop("to")).toEqual("/home");
+    expect(wrapper.find(Link).at(0).text()).toEqual("Henry Dogs App");
   });
-  it('El segundo Link debe tener el texto "LinkedIn" y cambiar la ruta hacia "https://www.linkedin.com/in/roque-iván-moyano-a5b0b7203"', () => {
-    expect(wrapper.find(Link).at(1).prop("to")).toEqual(
-      "https://www.linkedin.com/in/roque-iván-moyano-a5b0b7203"
-    );
-    expect(wrapper.find(Link).at(1).text()).toEqual("LinkedIn");
-  });
-  it('El tercer Link debe tener el texto "Mail" y cambiar la ruta hacia "mailto:rimoyano23@gmail.com,rimoyano23@gmail.com"', () => {
-    expect(wrapper.find(Link).at(2).prop("to")).toEqual(
-      "mailto:rimoyano23@gmail.com,rimoyano23@gmail.com"
-    );
-
-    expect(wrapper.find(Link).at(2).text()).toEqual("Mail");
+  it('El segundo Link debe tener el texto "Crear Raza" y cambiar la ruta hacia "/dog"', () => {
+    expect(wrapper.find(Link).at(1).prop("to")).toEqual("/dog");
+    expect(wrapper.find(Link).at(1).text()).toEqual("Crear Raza");
   });
 });
