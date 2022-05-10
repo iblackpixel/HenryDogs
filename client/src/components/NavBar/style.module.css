@@ -60,19 +60,12 @@
 }
 
 .inpt {
-  background-color: rgb(72, 77, 109);
   color: rgb(239, 233, 244);
-  border: solid 1px rgb(239, 233, 244);
-  border-radius: 8px;
   transition: 1s;
 }
 .inpt :hover {
-  background-color: rgb(239, 233, 244);
-  border-radius: 8px;
-  color: black;
-  border: solid 1px rgb(72, 77, 109);
+  color: rgb(72, 77, 109);
 }
 .inpt :visited {
-  /* color: rgb(72, 77, 109); */
   text-decoration: none;
 }

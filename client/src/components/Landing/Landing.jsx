@@ -1,8 +1,6 @@
 import React from "react";
 import style from "./Landing.module.css";
-import NavBar from "../NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
-import Footer from "../NavBar/Footer";
 
 export default function Landing(props) {
   return (

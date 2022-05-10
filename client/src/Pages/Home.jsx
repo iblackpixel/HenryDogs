@@ -6,49 +6,52 @@ import NavBar from "../components/NavBar/NavBar";
 import Paginado from "../components/NavBar/Paginado";
 import { getDogs, getTemperaments } from "../actions/actions";
 import style from "./style.module.css";
-import { useHistory } from "react-router-dom";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const allTemperaments = useSelector((state) => state.temperaments);
-  const history = useHistory();
+
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
+
   const [door, setDoor] = useState(0);
   const [door2, setDoor2] = useState(1);
   const [totalDogs, setTotalDogs] = useState([]);
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
-  const [filtTemp, setfiltTemp] = useState();
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     const filtDogs = [...allDogs].sort(function (a, b) {
       if (b.name > a.name) return -1;
     });
     setTotalDogs(filtDogs);
   }, [setTotalDogs, allDogs]);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const indexOfLastCountrie = currentPage * 8;
-  const indexOfFirstCountrie = indexOfLastCountrie - 8;
+  const indexOfLastDog = currentPage * 8;
+  const indexOfFirstDog = indexOfLastDog - 8;
+
   const paginado = (pageNumbers) => {
     setCurrentPage(pageNumbers);
   };
 
   const handleSelect = function (e) {
+    // eslint-disable-next-line array-callback-return
     let filteredTemp = allDogs.filter((d) => {
       if (d.temperament) {
-        console.log(d.temperament, "mevuelvoloco");
         if (d.temperament.includes(e.target.value)) return d;
       }
     });
-    console.log(filteredTemp, "allTemperaments", allDogs.length);
+
     setTotalDogs(filteredTemp);
   };
+
   const handleWeightSort = function () {
     if (door === 0) {
       const byWeight = [...totalDogs].sort(function (a, b) {
@@ -57,6 +60,7 @@ export default function Home() {
       setTotalDogs(byWeight);
       setDoor(1);
     } else {
+      // eslint-disable-next-line array-callback-return
       const filtDogs = [...totalDogs].sort(function (a, b) {
         if (b.name > a.name) return -1;
       });
@@ -64,6 +68,7 @@ export default function Home() {
       setDoor(0);
     }
   };
+
   const handleChecked = function () {
     if (checked === false) {
       if (checked2 === false) {
@@ -234,29 +239,26 @@ export default function Home() {
         </div>
       </div>
       <div className={style.dogcontainer}>
-        {console.log(totalDogs.length)}
         {door2 === 1
-          ? totalDogs
-              .slice(indexOfFirstCountrie, indexOfLastCountrie)
-              .map((e) => {
-                return (
-                  <Card
-                    key={e.id}
-                    id={e.id}
-                    name={e.name}
-                    weight={e.weight}
-                    image={e.image}
-                    temperaments={e.temperament}
-                  />
-                );
-              })
+          ? totalDogs.slice(indexOfFirstDog, indexOfLastDog).map((e) => {
+              return (
+                <Card
+                  key={e.id}
+                  id={e.id}
+                  name={e.name}
+                  weight={e.weight}
+                  image={e.image}
+                  temperaments={e.temperament}
+                />
+              );
+            })
           : totalDogs
               .slice(
                 totalDogs.length -
-                  (indexOfLastCountrie < totalDogs.length
-                    ? indexOfLastCountrie
+                  (indexOfLastDog < totalDogs.length
+                    ? indexOfLastDog
                     : totalDogs.length),
-                totalDogs.length - indexOfFirstCountrie
+                totalDogs.length - indexOfFirstDog
               )
               .reverse()
               .map((e) => {

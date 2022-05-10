@@ -30,7 +30,6 @@ server.get("/", async (req, res, next) => {
         let filteredBreeds = all.filter((p) =>
           p.name.toLowerCase().includes(word)
         );
-        console.log(filteredBreeds);
         if (!filteredBreeds.length) {
           return res.status(400).json({
             error:
@@ -43,6 +42,9 @@ server.get("/", async (req, res, next) => {
         next(error);
       }
     }
+
+    // get sin word
+
     let all = [];
     const list = await axios
       .get("https://api.thedogapi.com/v1/breeds?api_key={YOUR_API_KEY}")
@@ -146,31 +148,5 @@ server.get("/:idRaza", async (req, res, next) => {
     next(error);
   }
 });
-
-// server.get("/dogs?name=", async (req, res, next) => {
-//   console.log("no entro ni en pedo aquí");
-//   try {
-//     const word = req.query.name;
-//     console.log(word);
-//     let all = [];
-//     const list = await axios
-//       .get(
-//         `https://api.thedogapi.com/v1/breeds/search?q={word}?api_key={YOUR_API_KEY}"`
-//       )
-//       .then((e) => {
-//         all = e.data;
-//       });
-//     let filteredBreeds = all.filter((p) => p.name.includes(word));
-//     if (!filteredBreeds.length) {
-//       return res.status(STATUS_USER_ERROR).json({
-//         error: "No existe ninguna raza de perro que coincida con ese parámetro",
-//       });
-//     }
-//     filteredBreeds = filteredBreeds.map(({ name }) => ({ name }));
-//     return res.json(filteredBreeds);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 module.exports = server;

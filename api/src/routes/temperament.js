@@ -11,7 +11,6 @@ server.get("/", async (req, res, next) => {
     const perro = await Temperament.findAll({
       include: [{ model: Raza }],
     });
-    console.log(perro.length);
     if (perro.length === 0) {
       const list = await axios
         .get("https://api.thedogapi.com/v1/breeds?api_key={YOUR_API_KEY}")

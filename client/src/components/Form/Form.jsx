@@ -25,7 +25,6 @@ export function Form(props) {
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
-  // TODO Terminar la implementación del formulario
 
   const handleInputChange = function (e) {
     setInput((prevInput) => {
@@ -36,6 +35,7 @@ export function Form(props) {
     });
     setErrors(valida({ ...input, [e.target.name]: e.target.value }));
   };
+
   const handleSelect = function (e) {
     setInput((prevInput) => {
       return {
@@ -44,8 +44,8 @@ export function Form(props) {
       };
     });
   };
+
   const tempDelete = function (temp) {
-    console.log(temp, "esto es temp");
     const filteredTemp = input.temperaments.filter((t) => t !== temp);
     setInput((prevInput) => {
       return {
@@ -54,12 +54,14 @@ export function Form(props) {
       };
     });
   };
+
   let handleSubmit = async (e) => {
     e.preventDefault();
     const doggo = await Axios.post("http://localhost:3001/dog/", input);
     alert("Raza creada");
     history.push("/home");
   };
+
   const disabledSubmit = useMemo(() => {
     if (
       input.name.length > 0 &&
@@ -72,6 +74,7 @@ export function Form(props) {
     }
     return true;
   }, [input]);
+
   function valida(input) {
     let errors = {};
     if (!/^[a-zA-Z\s]{1,254}$/.test(input.name)) {
@@ -105,6 +108,7 @@ export function Form(props) {
     }
     return errors;
   }
+
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
       <div>

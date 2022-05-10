@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getBreed } from "../actions/actions";
 import Card from "../components/Card/Card";
 import Footer from "../components/NavBar/Footer";
 import NavBarExtra from "../components/NavBar/NavBarExtra";
-import NavBar2 from "../components/NavBar/NavBarExtra";
 import style from "./style.module.css";
 function Detail() {
   const { id } = useParams();

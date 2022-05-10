@@ -20,7 +20,7 @@ button {
   color: rgb(239, 233, 244);
   border: solid 1px rgb(239, 233, 244);
   border-radius: 8px;
-  transition: 1s;
+  transition: 0.8s;
 }
 button:hover {
   background-color: rgb(239, 233, 244);

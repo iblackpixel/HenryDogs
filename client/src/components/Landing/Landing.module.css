@@ -16,7 +16,7 @@
   margin-left: 10%;
   margin-right: 10%;
   padding: 3%;
-  background-color: rgb(8, 178, 227);
+  background-color: rgba(239, 233, 244, 0.805);
 }
 
 .btnCont {
@@ -37,19 +37,19 @@
   align-items: center;
   height: 200%;
   width: 150%;
-  font-size: 30px;
+  font-size: 2.2em;
   color: rgb(72, 77, 109);
   border-radius: 4%;
   margin-top: 1%;
   margin-left: 10%;
   margin-right: 35%;
   padding: 3%;
-  background-color: rgb(8, 178, 227);
+  background-color: rgba(239, 233, 244, 0.805);
 }
 
 .caratula {
   height: 200px;
-  background-color: rgb(238, 99, 82);
+  background-color: rgb(72, 77, 109);
   display: flex;
   justify-content: center;
   font-size: 30px;
@@ -63,6 +63,7 @@
 }
 .pocket {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 2em;
   display: flex;
   align-items: center;
   margin-left: 2%;
