@@ -77,16 +77,12 @@ export default function Home() {
         );
         setTotalDogs(filteredBreeds);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       } else {
         setTotalDogs(allDogs);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       }
       return setChecked(true);
@@ -94,9 +90,7 @@ export default function Home() {
       if (checked2 === false) {
         setTotalDogs(allDogs);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       } else {
         let filteredBreeds = allDogs.filter(
@@ -105,9 +99,7 @@ export default function Home() {
         setTotalDogs(filteredBreeds);
 
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       }
       return setChecked(false);
@@ -121,16 +113,12 @@ export default function Home() {
         );
         setTotalDogs(filteredBreeds);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       } else {
         setTotalDogs(allDogs);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       }
       return setChecked2(true);
@@ -143,9 +131,7 @@ export default function Home() {
         );
         setTotalDogs(filteredBreeds);
         if (door === 1) {
-          setTotalDogs(() => {
-            handleWeightSort();
-          });
+          handleWeightSort();
         }
       }
       return setChecked2(false);
@@ -222,7 +208,6 @@ export default function Home() {
               {allTemperaments.map((e) => {
                 return (
                   <option key={e.id} value={e.temperament}>
-                    {console.log()}
                     {e.temperament}
                   </option>
                 );
